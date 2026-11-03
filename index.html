@@ -3,834 +3,221 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Novos Rumos, Mesma Equipe — Reestruturação de Fluxo · Bioquímica</title>
+<title>DB Diagnósticos · Bioquímica — Portal de Projetos</title>
+<meta name="description" content="Central de projetos e apresentações do setor de Bioquímica da DB Diagnósticos." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
 <style>
   :root{
-    --db-blue-dark:#05062b;
-    --db-blue-mid:#232a6b;
-    --db-blue-light:#3a458f;
-    --db-orange:#35b6b4;
-    --db-orange-light:#62cfcd;
-    --db-white:#FFFFFF;
-    --db-gray-light:#F5F6FA;
-    --db-gray-mid:#6B7280;
-    --db-gray-dark:#1F2937;
+    --blue-dark:#05062b;
+    --blue-mid:#232a6b;
+    --blue-light:#3a458f;
+    --teal:#35b6b4;
+    --teal-light:#62cfcd;
+    --white:#ffffff;
+    --ink:#1F2937;
+    --muted:#9fb2c6;
+    --line:rgba(255,255,255,.10);
+    --card:rgba(255,255,255,.045);
+    --card-hover:rgba(255,255,255,.075);
     --g1:#1D9E75; --g2:#534AB7; --g3:#D85A30; --g4:#BA7517;
-    --shadow:0 4px 16px rgba(0,0,0,.10);
-    --shadow-lg:0 10px 30px rgba(0,0,0,.16);
-    --radius:12px;
+    --radius:16px;
   }
   *{box-sizing:border-box;margin:0;padding:0;}
-  html,body{height:100%;}
+  html{scroll-behavior:smooth;}
   body{
     font-family:'Open Sans',system-ui,sans-serif;
-    background:#05062b;
-    color:var(--db-gray-dark);
-    overflow:hidden;
-  }
-  /* ---------- Stage / scaling ---------- */
-  .stage{
-    position:fixed;inset:0;
-    display:flex;align-items:center;justify-content:center;
-    background:radial-gradient(120% 120% at 50% 0%, #141642 0%, #05062b 70%);
-  }
-  .deck{
-    position:relative;
-    width:1280px;height:720px;flex:0 0 auto;
-    transform-origin:center center;
-    background:var(--db-white);
-    box-shadow:0 30px 80px rgba(0,0,0,.5);
-    overflow:hidden;
-  }
-  .slides{position:absolute;inset:0;}
-  .slide{
-    position:absolute;inset:0;
-    opacity:0;visibility:hidden;
-    transition:opacity .3s ease;
-    padding:44px 60px 84px;
-    display:flex;flex-direction:column;
-  }
-  .slide.active{opacity:1;visibility:visible;}
-
-  .slide.dark{background:linear-gradient(135deg,var(--db-blue-dark) 0%,var(--db-blue-mid) 100%);color:var(--db-white);}
-  .slide.neutral{background:var(--db-gray-light);}
-  .slide.light{background:var(--db-white);}
-
-  /* ---------- Header system ---------- */
-  .kicker{
-    font-family:'Montserrat',sans-serif;font-weight:700;
-    font-size:13px;letter-spacing:.16em;text-transform:uppercase;
-    color:var(--db-orange);margin-bottom:10px;
-  }
-  .slide.dark .kicker{color:var(--db-orange-light);}
-  .s-title{
-    font-family:'Montserrat',sans-serif;font-weight:800;
-    font-size:32px;line-height:1.07;letter-spacing:-.01em;
-    color:var(--db-blue-dark);
-  }
-  .slide.dark .s-title{color:var(--db-white);}
-  .divider{width:60px;height:4px;background:var(--db-orange);border-radius:2px;margin:10px 0 9px;}
-  .s-sub{font-size:17px;line-height:1.38;color:var(--db-gray-mid);max-width:920px;}
-  .slide.dark .s-sub{color:var(--db-orange-light);}
-  .head{flex:0 0 auto;margin-bottom:16px;}
-  .body{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;}
-
-  /* ---------- Cards ---------- */
-  .card{background:var(--db-white);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px;}
-  .icon-chip{
-    width:54px;height:54px;border-radius:14px;display:flex;align-items:center;justify-content:center;
-    margin-bottom:16px;
-  }
-  .icon-chip svg{width:28px;height:28px;}
-  .card h3{font-family:'Montserrat',sans-serif;font-weight:700;font-size:20px;color:var(--db-blue-dark);margin-bottom:9px;}
-  .card p{font-size:15.5px;line-height:1.5;color:var(--db-gray-dark);}
-
-  .badge{
-    display:inline-flex;align-items:center;gap:7px;
-    background:var(--db-orange);color:#fff;font-family:'Montserrat','Helvetica Neue',Arial,sans-serif;font-weight:700;
-    font-size:13px;letter-spacing:.02em;padding:7px 14px;border-radius:999px;
-  }
-  .badge svg{width:15px;height:15px;}
-
-  /* ---------- Capa ---------- */
-  #s1{align-items:center;justify-content:center;text-align:center;padding:40px;}
-  #s1 .cover-inner{display:flex;flex-direction:column;align-items:center;max-width:1120px;}
-  #s1 .wordmark{font-family:'Montserrat','Helvetica Neue',Arial,sans-serif;font-weight:800;font-size:28px;letter-spacing:.03em;color:#fff;white-space:nowrap;}
-  #s1 .wm-rule{width:108px;height:4px;background:var(--db-orange);border-radius:2px;margin:9px 0 44px;}
-  #s1 .cover-line{width:80px;height:4px;background:var(--db-orange);border-radius:2px;margin:0 0 24px;}
-  #s1 h1{font-family:'Montserrat','Helvetica Neue',Arial,sans-serif;font-weight:800;font-size:64px;line-height:1.07;letter-spacing:-.02em;color:#fff;white-space:nowrap;}
-  #s1 .cover-sub{font-family:'Montserrat','Helvetica Neue',Arial,sans-serif;font-weight:700;font-size:22px;color:var(--db-orange-light);margin-top:24px;}
-  #s1 .cover-date{font-size:16px;color:#cdd9e6;margin-top:8px;letter-spacing:.05em;}
-  #s1 .cover-foot{position:absolute;bottom:96px;left:0;right:0;text-align:center;font-size:14px;color:#9fb2c6;letter-spacing:.03em;}
-  #s1 .cover-foot b{color:#dbe6f1;font-weight:600;}
-  #s1 .glow{position:absolute;width:680px;height:680px;border-radius:50%;
-    background:radial-gradient(circle, rgba(53,182,180,.20) 0%, rgba(53,182,180,0) 62%);
-    top:-160px;right:-160px;pointer-events:none;}
-  #s1 .glow2{position:absolute;width:520px;height:520px;border-radius:50%;
-    background:radial-gradient(circle, rgba(58,69,143,.30) 0%, rgba(58,69,143,0) 62%);
-    bottom:-180px;left:-120px;pointer-events:none;}
-
-  /* ---------- Tabs (turnos) ---------- */
-  .tabs{display:flex;gap:10px;}
-  .tab{
-    font-family:'Montserrat','Helvetica Neue',Arial,sans-serif;font-weight:700;font-size:14px;letter-spacing:.02em;
-    padding:9px 20px;border-radius:999px;cursor:pointer;border:2px solid transparent;
-    background:rgba(5,6,43,.08);color:var(--db-blue-dark);transition:all .15s;
-  }
-  .slide.dark .tab{background:rgba(255,255,255,.12);color:#fff;}
-  .tab:hover{background:rgba(5,6,43,.16);}
-  .slide.dark .tab:hover{background:rgba(255,255,255,.2);}
-  .tab.on{background:var(--db-orange);color:#fff;}
-  .slide.dark .tab.on{background:var(--db-orange);color:#fff;}
-
-  /* ---------- Map (slide 3) ---------- */
-  .map-wrap{flex:1;display:flex;gap:24px;min-height:0;}
-  .map-stage{position:relative;width:620px;height:330px;flex:0 0 620px;}
-  .equip{
-    position:absolute;width:150px;height:56px;border-radius:10px;cursor:pointer;
-    display:flex;flex-direction:column;align-items:center;justify-content:center;
-    color:#fff;border:2px solid transparent;transition:transform .12s, filter .12s, box-shadow .12s;
-    box-shadow:var(--shadow);
-  }
-  .equip:hover{filter:brightness(.92);transform:translateY(-2px);}
-  .equip.sel{box-shadow:0 0 0 4px rgba(53,182,180,.95), var(--shadow-lg);transform:translateY(-2px);}
-  .equip .en{font-family:'Montserrat','Helvetica Neue',Arial,sans-serif;font-weight:800;font-size:15px;line-height:1.1;white-space:nowrap;}
-  .equip .eo{font-size:10px;font-weight:600;opacity:.92;margin-top:2px;white-space:nowrap;}
-  .equip.info{background:#e5e9f2;color:var(--db-gray-mid);cursor:default;border:2px dashed #b9c2d6;box-shadow:none;}
-  .equip.info:hover{filter:none;transform:none;}
-  .pri-badge{
-    position:absolute;top:-10px;right:-6px;background:var(--db-orange);color:#fff;
-    font-family:'Montserrat','Helvetica Neue',Arial,sans-serif;font-weight:700;font-size:9px;letter-spacing:.01em;
-    padding:2px 6px;border-radius:5px;box-shadow:var(--shadow);white-space:nowrap;
-  }
-  #arrows{position:absolute;inset:0;width:620px;height:330px;pointer-events:none;overflow:visible;}
-  .cov-line{stroke:var(--db-orange);stroke-width:3;fill:none;stroke-dasharray:9 7;animation:flow 1s linear infinite;}
-  @keyframes flow{to{stroke-dashoffset:-32;}}
-  .cov-label{font-family:'Montserrat','Helvetica Neue',Arial,sans-serif;font-weight:700;font-size:11px;fill:var(--db-blue-dark);}
-  .cov-label-bg{fill:#fff;opacity:.92;}
-
-  .map-panel{
-    flex:1;min-width:0;background:var(--db-gray-light);border-radius:var(--radius);
-    border:1px solid #e4e8f1;padding:22px 22px;display:flex;flex-direction:column;
-  }
-  .map-panel .hint{color:var(--db-gray-mid);font-size:15px;line-height:1.5;margin:auto 0;text-align:center;}
-  .mp-eq{font-family:'Montserrat','Helvetica Neue',Arial,sans-serif;font-weight:800;font-size:21px;color:var(--db-blue-dark);}
-  .mp-resp{display:inline-flex;align-items:center;gap:8px;margin-top:6px;font-weight:600;font-size:14px;}
-  .mp-resp .dotc{width:12px;height:12px;border-radius:50%;}
-  .mp-acts{list-style:none;margin-top:14px;display:flex;flex-direction:column;gap:10px;}
-  .mp-acts li{display:flex;gap:9px;font-size:14px;line-height:1.4;color:var(--db-gray-dark);}
-  .mp-acts li svg{flex:0 0 17px;width:17px;height:17px;color:var(--db-orange);margin-top:2px;}
-  .mp-cover{margin-top:16px;padding-top:14px;border-top:1px dashed #cbd3e0;font-size:13.5px;color:var(--db-gray-dark);}
-  .mp-cover b{color:var(--db-blue-dark);font-family:'Montserrat','Helvetica Neue',Arial,sans-serif;}
-
-  .map-toolbar{display:flex;align-items:center;gap:14px;margin-bottom:16px;flex-wrap:wrap;}
-  .cov-toggle{
-    font-family:'Montserrat','Helvetica Neue',Arial,sans-serif;font-weight:700;font-size:13px;cursor:pointer;
-    padding:9px 16px;border-radius:999px;border:2px solid var(--db-orange);
-    background:transparent;color:var(--db-orange);transition:all .15s;display:inline-flex;gap:7px;align-items:center;
-  }
-  .cov-toggle:hover{background:rgba(53,182,180,.12);}
-  .cov-toggle.on{background:var(--db-orange);color:#fff;}
-
-  /* ---------- Person cards (slide 4 / 9) ---------- */
-  .pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;flex:1;min-height:0;}
-  .pcard{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column;min-height:0;}
-  .pcard .pc-top{padding:13px 16px 11px;color:#fff;flex:0 0 auto;}
-  .pcard .pc-name{font-family:'Montserrat','Helvetica Neue',Arial,sans-serif;font-weight:800;font-size:18px;}
-  .pcard .pc-eq{font-size:12px;font-weight:600;opacity:.95;margin-top:3px;letter-spacing:.01em;}
-  .pcard .pc-body{padding:13px 16px 15px;flex:1;min-height:0;}
-  .pc-body ul{list-style:none;display:flex;flex-direction:column;gap:8px;}
-  .pc-body li{display:flex;gap:8px;font-size:12.5px;line-height:1.34;color:var(--db-gray-dark);}
-  .pc-body li svg{flex:0 0 14px;width:14px;height:14px;color:var(--db-orange);margin-top:2px;}
-
-  /* ---------- Coverage table (slide 5) ---------- */
-  .cov-note{
-    background:#fff;border-left:6px solid var(--db-orange);border-radius:10px;
-    box-shadow:var(--shadow);padding:16px 20px;margin-bottom:18px;display:flex;gap:13px;align-items:flex-start;
-  }
-  .cov-note svg{flex:0 0 24px;width:24px;height:24px;color:var(--db-orange);margin-top:1px;}
-  .cov-note p{font-size:15px;line-height:1.45;color:var(--db-gray-dark);}
-  .cov-note b{color:var(--db-blue-dark);}
-  .ctable{width:100%;border-collapse:separate;border-spacing:0 10px;}
-  .ctable th{
-    font-family:'Montserrat','Helvetica Neue',Arial,sans-serif;font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase;
-    color:var(--db-gray-mid);text-align:left;padding:0 18px;
-  }
-  .ctable td{background:#fff;padding:15px 18px;font-size:15.5px;vertical-align:middle;}
-  .ctable tr td:first-child{border-radius:10px 0 0 10px;}
-  .ctable tr td:last-child{border-radius:0 10px 10px 0;}
-  .ctable tbody tr{box-shadow:var(--shadow);}
-  .cell-folga{font-family:'Montserrat','Helvetica Neue',Arial,sans-serif;font-weight:700;color:var(--db-gray-dark);}
-  .cell-cobre{font-family:'Montserrat','Helvetica Neue',Arial,sans-serif;font-weight:800;color:var(--db-blue-dark);}
-  .arrow-cell{text-align:center;width:54px;}
-  .arrow-cell svg{width:26px;height:18px;color:var(--db-orange);}
-  .cell-assume{color:var(--db-gray-mid);font-size:14px;}
-
-  /* ---------- Slide 6 ---------- */
-  .news-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:26px;flex:1;align-items:start;}
-  .sched{display:flex;flex-direction:column;gap:14px;}
-  .sched-card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 20px;border-top:4px solid var(--db-orange);}
-  .sched-card .sc-turn{font-family:'Montserrat','Helvetica Neue',Arial,sans-serif;font-weight:700;font-size:13px;color:var(--db-orange);letter-spacing:.04em;}
-  .sched-card .sc-name{font-family:'Montserrat','Helvetica Neue',Arial,sans-serif;font-weight:800;font-size:19px;color:var(--db-blue-dark);margin-top:2px;}
-  .sched-card .sc-time{font-size:22px;font-weight:700;color:var(--db-gray-dark);margin-top:6px;}
-  .note-soft{font-size:13.5px;color:var(--db-gray-mid);margin-top:6px;}
-  .quote-foot{
-    margin-top:auto;padding-top:18px;font-style:italic;font-family:'Montserrat','Helvetica Neue',Arial,sans-serif;font-weight:600;
-    font-size:18px;color:var(--db-blue-dark);
+    color:#e8eef6;
+    background:radial-gradient(120% 90% at 50% -10%, #141642 0%, #05062b 62%);
+    min-height:100vh;
+    -webkit-font-smoothing:antialiased;
   }
 
-  /* ---------- Slide 8 columns ---------- */
-  .two-col{display:grid;grid-template-columns:1.4fr 1fr;gap:26px;flex:1;}
-  .col-h{font-family:'Montserrat','Helvetica Neue',Arial,sans-serif;font-weight:800;font-size:18px;margin-bottom:14px;letter-spacing:.01em;}
-  .imp-list{list-style:none;display:flex;flex-direction:column;gap:14px;}
-  .imp-list li{display:flex;gap:11px;background:#fff;border-radius:10px;box-shadow:var(--shadow);padding:15px 17px;font-size:14.5px;line-height:1.42;}
-  .imp-list li svg{flex:0 0 19px;width:19px;height:19px;margin-top:2px;}
+  /* glows */
+  .glow{position:fixed;border-radius:50%;pointer-events:none;z-index:0;}
+  .glow.a{width:680px;height:680px;top:-220px;right:-180px;
+    background:radial-gradient(circle, rgba(53,182,180,.18) 0%, rgba(53,182,180,0) 62%);}
+  .glow.b{width:560px;height:560px;bottom:-220px;left:-160px;
+    background:radial-gradient(circle, rgba(58,69,143,.28) 0%, rgba(58,69,143,0) 62%);}
 
-  /* ---------- Closing (slide 9) ---------- */
-  #s9 .letter{font-size:14px;line-height:1.48;color:#dbe6f1;max-width:1120px;}
-  #s9 .letter p{margin-bottom:7px;}
-  #s9 .sign{font-family:'Montserrat','Helvetica Neue',Arial,sans-serif;font-weight:700;color:var(--db-orange-light);font-size:14px;margin-top:4px;}
-  #s9 .sec-h{font-family:'Montserrat','Helvetica Neue',Arial,sans-serif;font-weight:700;color:#fff;font-size:15px;margin:12px 0 10px;display:flex;align-items:center;gap:14px;}
-  #s9 .pc-body{overflow-y:auto;}
-  #s9 .pc-body::-webkit-scrollbar{width:6px;}
-  #s9 .pc-body::-webkit-scrollbar-thumb{background:#cdd5e2;border-radius:3px;}
-  #s9 .pcard .pc-body{font-size:11.5px;}
-  #s9 .pc-body li{font-size:11.5px;line-height:1.32;}
-  #s9 .pc-sub{font-family:'Montserrat','Helvetica Neue',Arial,sans-serif;font-weight:700;font-size:10.5px;letter-spacing:.03em;text-transform:uppercase;color:var(--db-gray-mid);margin:11px 0 6px;}
-  #s9 .pc-sub:first-child{margin-top:0;}
-  #s9 .cover-note{font-size:11px;color:var(--db-gray-mid);margin-top:9px;padding-top:8px;border-top:1px dashed #dfe4ee;line-height:1.38;}
-  #s9 .cover-note b{color:var(--db-blue-dark);}
+  .wrap{position:relative;z-index:1;max-width:1120px;margin:0 auto;padding:0 24px;}
 
-  /* ---------- Footer ---------- */
-  .deck-footer{
-    position:absolute;left:0;right:0;bottom:0;height:60px;
-    display:flex;align-items:center;justify-content:space-between;padding:0 28px;
-    border-top:3px solid var(--db-orange);background:rgba(255,255,255,.72);backdrop-filter:blur(4px);
-    font-size:13px;color:var(--db-gray-mid);z-index:5;
-  }
-  .slide.dark ~ .deck-footer,.deck-footer.on-dark{background:rgba(5,6,43,.62);}
-  .deck-footer.on-dark{color:#aeb6d0;}
-  .deck-footer.on-dark .ft-left{color:#fff;}
-  .ft-left{font-family:'Montserrat','Helvetica Neue',Arial,sans-serif;font-weight:700;color:var(--db-blue-dark);letter-spacing:.01em;}
-  .ft-right{font-family:'Montserrat','Helvetica Neue',Arial,sans-serif;font-weight:600;letter-spacing:.04em;}
-  .dots{display:flex;gap:9px;align-items:center;}
-  .dot{width:9px;height:9px;border-radius:50%;background:#c4ccda;cursor:pointer;transition:all .2s;}
-  .dot:hover{background:var(--db-orange-light);}
-  .dot.on{background:var(--db-orange);width:26px;border-radius:6px;}
+  /* top bar */
+  header.top{display:flex;align-items:center;justify-content:space-between;padding:26px 0 18px;}
+  .brand{display:flex;flex-direction:column;gap:7px;}
+  .wordmark{font-family:'Montserrat',sans-serif;font-weight:800;font-size:20px;letter-spacing:.04em;color:#fff;}
+  .wm-rule{width:48px;height:4px;background:var(--teal);border-radius:2px;}
+  .top-tag{font-family:'Montserrat',sans-serif;font-weight:700;font-size:12px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--teal-light);}
 
-  /* ---------- Controls (outside scaled deck) ---------- */
-  .controls{
-    position:fixed;bottom:18px;right:22px;z-index:50;
-    display:flex;align-items:center;gap:10px;
-    background:rgba(10,23,34,.78);border:1px solid rgba(255,255,255,.12);
-    padding:8px 10px;border-radius:14px;backdrop-filter:blur(8px);
-  }
-  .controls .pg{font-family:'Montserrat','Helvetica Neue',Arial,sans-serif;font-weight:700;font-size:13px;color:#cdd9e6;padding:0 6px;min-width:74px;text-align:center;}
-  .nbtn{
-    font-family:'Montserrat','Helvetica Neue',Arial,sans-serif;font-weight:700;font-size:13px;cursor:pointer;border:none;
-    background:rgba(255,255,255,.1);color:#fff;padding:8px 14px;border-radius:9px;display:flex;align-items:center;gap:7px;transition:background .15s;
-  }
-  .nbtn:hover{background:rgba(255,255,255,.2);}
-  .nbtn:disabled{opacity:.35;cursor:default;}
-  .nbtn.pdf{background:var(--db-orange);}
-  .nbtn.pdf:hover{background:var(--db-orange-light);}
-  .nbtn svg{width:15px;height:15px;}
-  .hint-kbd{position:fixed;bottom:24px;left:22px;z-index:50;color:#6d8095;font-size:12px;font-family:'Montserrat','Helvetica Neue',Arial,sans-serif;font-weight:600;letter-spacing:.02em;}
+  /* hero */
+  .hero{padding:52px 0 40px;max-width:780px;}
+  .kicker{font-family:'Montserrat',sans-serif;font-weight:700;font-size:13px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--teal);margin-bottom:16px;}
+  .hero h1{font-family:'Montserrat',sans-serif;font-weight:800;font-size:clamp(34px,5.4vw,58px);
+    line-height:1.06;letter-spacing:-.02em;color:#fff;}
+  .hero .line{width:72px;height:4px;background:var(--teal);border-radius:2px;margin:22px 0 20px;}
+  .hero p{font-size:clamp(16px,2vw,19px);line-height:1.55;color:#c4d2e2;max-width:640px;}
 
-  /* ---------- Responsive controls ---------- */
-  @media (max-width:760px){
-    .hint-kbd{display:none;}
-    .controls{left:50%;right:auto;transform:translateX(-50%);bottom:12px;gap:7px;padding:7px 9px;}
-    .nbtn{padding:8px 11px;font-size:12px;}
-    .controls .pg{min-width:60px;font-size:12px;padding:0 3px;}
-  }
-  @media (max-width:480px){
-    .nbtn span,.nbtn:not(.pdf){font-size:0;}
-    .nbtn svg{width:17px;height:17px;}
-    .nbtn.pdf{font-size:12px;}
-    .controls .pg{min-width:52px;}
-  }
+  /* section label */
+  .sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;
+    margin:26px 0 20px;padding-bottom:14px;border-bottom:1px solid var(--line);}
+  .sec-head h2{font-family:'Montserrat',sans-serif;font-weight:700;font-size:15px;letter-spacing:.14em;
+    text-transform:uppercase;color:#dbe6f1;}
+  .sec-head .count{font-size:13px;color:var(--muted);font-weight:600;}
 
-  /* ---------- Print ---------- */
-  @media print{
-    @page{size:1280px 720px;margin:0;}
-    body{overflow:visible;background:#fff;}
-    .controls,.hint-kbd{display:none!important;}
-    .stage{position:static;display:block;background:#fff;}
-    .deck{transform:none!important;width:1280px;height:auto;box-shadow:none;}
-    .slides{position:static;}
-    .slide{position:static!important;opacity:1!important;visibility:visible!important;
-      width:1280px;height:720px;page-break-after:always;break-after:page;overflow:hidden;}
-    .deck-footer{display:none;}
+  /* grid */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;padding-bottom:16px;}
+
+  .card{
+    position:relative;display:flex;flex-direction:column;
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:26px 24px 22px;text-decoration:none;color:inherit;overflow:hidden;
+    transition:transform .18s ease, border-color .18s ease, background .18s ease, box-shadow .18s ease;
+  }
+  .card.live{cursor:pointer;}
+  .card.live:hover{transform:translateY(-4px);background:var(--card-hover);
+    border-color:rgba(53,182,180,.45);box-shadow:0 18px 40px rgba(0,0,0,.35);}
+  .card.live:focus-visible{outline:2px solid var(--teal);outline-offset:3px;}
+  .card.soon{opacity:.72;}
+
+  .chip{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;
+    margin-bottom:18px;flex:0 0 auto;}
+  .chip svg{width:26px;height:26px;stroke:#fff;}
+
+  .tag{display:inline-flex;align-items:center;gap:6px;align-self:flex-start;
+    font-family:'Montserrat',sans-serif;font-weight:700;font-size:11px;letter-spacing:.08em;
+    text-transform:uppercase;padding:5px 11px;border-radius:999px;margin-bottom:12px;}
+  .tag.disp{background:rgba(53,182,180,.16);color:var(--teal-light);}
+  .tag.soon{background:rgba(159,178,198,.14);color:var(--muted);}
+
+  .card h3{font-family:'Montserrat',sans-serif;font-weight:700;font-size:20px;line-height:1.18;
+    color:#fff;margin-bottom:9px;}
+  .card p{font-size:14.5px;line-height:1.5;color:#b7c4d6;flex:1 1 auto;}
+
+  .go{display:inline-flex;align-items:center;gap:8px;margin-top:20px;
+    font-family:'Montserrat',sans-serif;font-weight:700;font-size:14px;color:var(--teal-light);}
+  .go svg{width:16px;height:16px;transition:transform .18s ease;}
+  .card.live:hover .go svg{transform:translateX(4px);}
+  .go.muted{color:var(--muted);}
+
+  footer{margin-top:48px;padding:28px 0 42px;border-top:1px solid var(--line);
+    display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+    font-size:13px;color:var(--muted);}
+  footer b{color:#dbe6f1;font-weight:600;}
+
+  @media(max-width:560px){
+    header.top{flex-direction:column;align-items:flex-start;gap:14px;}
+    .hero{padding:36px 0 30px;}
+    .grid{grid-template-columns:1fr;}
   }
 </style>
 </head>
 <body>
-<div class="stage">
-  <div class="deck" id="deck">
-    <div class="slides" id="slides">
+  <div class="glow a"></div>
+  <div class="glow b"></div>
 
-      <!-- ===================== SLIDE 1 — CAPA ===================== -->
-      <section class="slide dark active" id="s1" data-screen-label="01 Capa">
-        <div class="glow"></div><div class="glow2"></div>
-        <div class="cover-inner">
-          <div class="wordmark">DB Diagnósticos</div>
-          <div class="wm-rule"></div>
-          <div class="cover-line"></div>
-          <h1>Novos Rumos,<br/>Mesma Equipe</h1>
-          <div class="cover-sub">Reestruturação de Fluxo — Setor de Bioquímica</div>
-          <div class="cover-date">Junho 2026</div>
-        </div>
-        <div class="cover-foot">Supervisão de Bioquímica · DB Diagnósticos &nbsp;·&nbsp; Conduzido por <b>Mariana Nogueira</b></div>
-      </section>
+  <div class="wrap">
+    <header class="top">
+      <div class="brand">
+        <span class="wordmark">DB DIAGNÓSTICOS</span>
+        <span class="wm-rule"></span>
+      </div>
+      <span class="top-tag">Bioquímica · Portal interno</span>
+    </header>
 
-      <!-- ===================== SLIDE 2 — POR QUE MUDAR ===================== -->
-      <section class="slide neutral" id="s2" data-screen-label="02 Por que mudar">
-        <div class="head">
-          <div class="kicker">O ponto de partida</div>
-          <h2 class="s-title">Por que estamos mudando?</h2>
-          <div class="divider"></div>
-          <p class="s-sub" style="color:var(--db-orange);font-weight:600;">Evolução não acontece por acaso — ela é construída em equipe.</p>
-        </div>
-        <div class="body">
-          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:22px;flex:1;">
-            <div class="card">
-              <div class="icon-chip" style="background:rgba(35,42,107,.12);color:var(--db-blue-mid);">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1" fill="currentColor"/></svg>
-              </div>
-              <h3>Otimização da operação</h3>
-              <p>Precisamos minimizar impactos de erros nos microfluxos do setor e garantir que cada etapa do processo seja executada com precisão e consistência.</p>
-            </div>
-            <div class="card">
-              <div class="icon-chip" style="background:rgba(53,182,180,.14);color:var(--db-orange);">
-                <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2.5l2.7 5.8 6.3.7-4.7 4.3 1.3 6.2L12 16.9 6.1 19.5l1.3-6.2L2.7 9l6.3-.7z"/></svg>
-              </div>
-              <h3>Destaque na empresa</h3>
-              <p>Com um fluxo bem estruturado, o setor de Bioquímica se posiciona como referência dentro do DB Diagnósticos — e isso reflete diretamente no crescimento de cada um de nós.</p>
-            </div>
-            <div class="card">
-              <div class="icon-chip" style="background:rgba(58,69,143,.14);color:var(--db-blue-light);">
-                <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 20.5l-1.3-1.2C6 15 3 12.3 3 8.9 3 6.4 5 4.5 7.4 4.5c1.4 0 2.8.7 3.6 1.8.8-1.1 2.2-1.8 3.6-1.8C17 4.5 19 6.4 19 8.9c0 3.4-3 6.1-7.7 10.4L12 20.5z"/></svg>
-              </div>
-              <h3>A liderança ouviu vocês</h3>
-              <p>A sobrecarga foi percebida. Novas vagas foram abertas e essa reestruturação existe para que o trabalho de todos flua melhor. Isso é cuidado com a equipe.</p>
-            </div>
-          </div>
-        </div>
-      </section>
+    <section class="hero">
+      <p class="kicker">Central de Projetos</p>
+      <h1>Tudo da equipe, em um só lugar.</h1>
+      <div class="line"></div>
+      <p>Acesse as apresentações e os projetos do setor de Bioquímica da DB Diagnósticos a partir deste portal. Novos materiais entram aqui assim que ficam prontos.</p>
+    </section>
 
-      <!-- ===================== SLIDE 3 — MAPA DA BANCADA ===================== -->
-      <section class="slide light" id="s3" data-screen-label="03 Mapa da bancada">
-        <div class="head">
-          <div class="kicker">Novo fluxo</div>
-          <h2 class="s-title">Nossa bancada, nossa responsabilidade</h2>
-          <div class="divider"></div>
-          <p class="s-sub">Selecione o turno para ver quem cuida de cada equipamento.</p>
-        </div>
-        <div class="body">
-          <div class="map-toolbar">
-            <div class="tabs" id="map-tabs"></div>
-            <button class="cov-toggle" id="cov-toggle">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h14"/><path d="M13 6l6 6-6 6"/></svg>
-              Ver coberturas de folga
-            </button>
-          </div>
-          <div class="map-wrap">
-            <div class="map-stage" id="map-stage">
-              <svg id="arrows"></svg>
-            </div>
-            <div class="map-panel" id="map-panel">
-              <p class="hint">Clique em um equipamento no mapa para ver o responsável e suas atividades neste turno.</p>
-            </div>
-          </div>
-        </div>
-      </section>
+    <div class="sec-head">
+      <h2>Projetos</h2>
+      <span class="count" id="count"></span>
+    </div>
 
-      <!-- ===================== SLIDE 4 — RESPONSABILIDADES ===================== -->
-      <section class="slide dark" id="s4" data-screen-label="04 Responsabilidades">
-        <div class="head">
-          <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;">
-            <div>
-              <div class="kicker">Responsabilidades individuais</div>
-              <h2 class="s-title">Cada um no seu lugar, todos pelo mesmo objetivo</h2>
-              <div class="divider"></div>
-              <p class="s-sub">As responsabilidades são individuais. O resultado é coletivo.</p>
-            </div>
-            <div class="tabs" id="s4-tabs"></div>
-          </div>
-        </div>
-        <div class="body">
-          <div class="pgrid" id="s4-grid"></div>
-        </div>
-      </section>
+    <main class="grid" id="grid"></main>
 
-      <!-- ===================== SLIDE 5 — COBERTURA DE FOLGAS ===================== -->
-      <section class="slide neutral" id="s5" data-screen-label="05 Cobertura de folgas">
-        <div class="head">
-          <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;">
-            <div>
-              <div class="kicker">Cobertura de folgas</div>
-              <h2 class="s-title">Quando um descansa, o time não para</h2>
-              <div class="divider"></div>
-              <p class="s-sub">Cada colaborador sabe quem cobrirá e será coberto. O fluxo continua.</p>
-            </div>
-            <div class="tabs" id="s5-tabs"></div>
-          </div>
-        </div>
-        <div class="body">
-          <div class="cov-note">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 16H3z"/><path d="M12 10v5M12 17h.01"/></svg>
-            <p><b>Prioridade máxima:</b> os equipamentos RAU 51, 52, 53 e 54 fazem parte do fluxo <b>one way</b>. Em qualquer cobertura de folga, eles devem ser atendidos primeiro.</p>
-          </div>
-          <table class="ctable">
-            <thead><tr><th>Quem folga</th><th></th><th>Quem cobre</th><th>O que assume</th></tr></thead>
-            <tbody id="s5-rows"></tbody>
-          </table>
-        </div>
-      </section>
-
-      <!-- ===================== SLIDE 6 — ANALISTA DE QUALIDADE ===================== -->
-      <section class="slide light" id="s6" data-screen-label="06 Analista de qualidade">
-        <div class="head">
-          <div class="kicker">Novidades</div>
-          <h2 class="s-title">Novidades que fortalecem o time</h2>
-          <div class="divider"></div>
-          <span class="badge">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg>
-            Novo na equipe
-          </span>
-        </div>
-        <div class="body">
-          <div class="news-grid">
-            <div class="card" style="border-top:5px solid var(--db-orange);">
-              <h3 style="font-size:24px;">Nova vaga: Analista de Qualidade</h3>
-              <p style="font-size:16px;margin-top:10px;line-height:1.55;">A coordenação analítica identificou a necessidade de reforçar a qualidade dos processos. Uma analista de qualidade foi integrada aos turnos <b>A</b> e <b>B</b> para amarrar os fluxos e reduzir vieses operacionais.</p>
-              <p class="note-soft" style="margin-top:16px;">O turno C ainda não terá analista de qualidade neste primeiro momento.</p>
-            </div>
-            <div class="sched">
-              <div class="sched-card">
-                <div class="sc-turn">PATRÍCIA · TURNO A</div>
-                <div class="sc-time">06h30 — 15h00</div>
-              </div>
-              <div class="sched-card">
-                <div class="sc-turn">VAGA · TURNO B</div>
-                <div class="sc-time">14h45 — 23h10</div>
-              </div>
-            </div>
-          </div>
-          <p class="quote-foot">“Qualidade não é um departamento — é uma cultura que construímos juntos.”</p>
-        </div>
-      </section>
-
-      <!-- ===================== SLIDE 7 — BECKMAN ACADEMY ===================== -->
-      <section class="slide dark" id="s7" data-screen-label="07 Beckman Academy">
-        <div class="head">
-          <div class="kicker">Desenvolvimento</div>
-          <h2 class="s-title">Beckman Academy: crescer faz parte do trabalho</h2>
-          <div class="divider"></div>
-          <p class="s-sub">Um projeto de aprimoramento técnico e analítico para toda a equipe.</p>
-        </div>
-        <div class="body">
-          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;flex:1;">
-            <div class="card" style="border-top:5px solid var(--db-orange);">
-              <div class="icon-chip" style="background:rgba(35,42,107,.12);color:var(--db-blue-mid);">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-4 9 4-9 4z"/><path d="M7 11v4.5c0 1.2 2.3 2.5 5 2.5s5-1.3 5-2.5V11"/><path d="M21 9v5"/></svg>
-              </div>
-              <h3>Para quem está começando</h3>
-              <p>Colaboradores sem certificação Beckman passarão por treinamento completo do zero, com módulos estruturados por nível.</p>
-            </div>
-            <div class="card" style="border-top:5px solid var(--db-orange);">
-              <div class="icon-chip" style="background:rgba(53,182,180,.14);color:var(--db-orange);">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="14" r="6"/><path d="M9 9.3L7 3h4l1.3 3M15 9.3L17 3h-4"/><path d="M12 12l.9 1.8 2 .3-1.4 1.4.3 2-1.8-1-1.8 1 .3-2L9.1 14.1l2-.3z"/></svg>
-              </div>
-              <h3>Para quem já tem experiência</h3>
-              <p>Módulos específicos focados na expertise de cada colaborador com a Beckman. Provas por nível, disparadas e sinalizadas pela supervisão.</p>
-            </div>
-            <div class="card" style="border-top:5px solid var(--db-orange);">
-              <div class="icon-chip" style="background:rgba(58,69,143,.14);color:var(--db-blue-light);">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4h10v4a5 5 0 0 1-10 0z"/><path d="M7 6H4v1a3 3 0 0 0 3 3M17 6h3v1a3 3 0 0 1-3 3"/><path d="M9 19h6M12 14v5"/></svg>
-              </div>
-              <h3>Reconhecimento garantido</h3>
-              <p>Certificação ao concluir cada módulo. Premiação especial para os destaques. Seu esforço será reconhecido.</p>
-            </div>
-          </div>
-          <p style="color:#cdd9e6;font-size:14px;margin-top:18px;text-align:center;">Os treinamentos podem exigir ajuste de escala para participação. A supervisão comunicará com antecedência.</p>
-        </div>
-      </section>
-
-      <!-- ===================== SLIDE 8 — MELHORIAS + BOAS PRÁTICAS ===================== -->
-      <section class="slide neutral" id="s8" data-screen-label="08 Melhorias e boas práticas">
-        <div class="head">
-          <div class="kicker">Em andamento</div>
-          <h2 class="s-title">Melhorias em andamento e boas práticas</h2>
-          <div class="divider"></div>
-        </div>
-        <div class="body">
-          <div class="two-col">
-            <div>
-              <div class="col-h" style="color:var(--db-orange);">Melhorias em andamento · com Felipe</div>
-              <ul class="imp-list">
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--db-orange)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg><span>Troca de todos os leitores de etiqueta — peças já solicitadas à Beckman.</span></li>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--db-orange)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg><span>Treinamento de processos críticos com o técnico Felipe: troca de seringa, manuseio da estação de lavagem e outros. (datas sendo avaliadas)</span></li>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--db-orange)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg><span>Atualização do sistema de todos os AUs: a entrada de urgência passará a funcionar integrada às raques de controle e calibração, otimizando a liberação dos equipamentos. (A partir de 05/06/2026)</span></li>
-              </ul>
-            </div>
-            <div>
-              <div class="col-h" style="color:var(--db-blue-mid);">Boas práticas obrigatórias · assessora Beckman</div>
-              <ul class="imp-list">
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--db-blue-mid)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 16H3z"/><path d="M12 10v5M12 17h.01"/></svg><span>Sempre homogeneizar <b>FR</b> e <b>ASO</b> antes do uso.</span></li>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--db-blue-mid)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 16H3z"/><path d="M12 10v5M12 17h.01"/></svg><span>Realizar a troca do copo de <b>CLEANING</b> regularmente.</span></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ===================== SLIDE 9 — ENCERRAMENTO ===================== -->
-      <section class="slide dark" id="s9" data-screen-label="09 Encerramento">
-        <div class="head" style="margin-bottom:14px;">
-          <div class="kicker">Encerramento · Carta do time</div>
-          <h2 class="s-title" style="font-size:34px;">Vocês estão construindo algo maior</h2>
-          <div class="divider"></div>
-        </div>
-        <div class="body">
-          <div class="letter">
-            <p>Essa reestruturação não é apenas uma mudança de fluxo. É o primeiro passo de um projeto que, se bem executado aqui no nosso setor, será replicado em todas as unidades do DB Diagnósticos no Brasil.</p>
-            <p>Cada tarefa cumprida, cada equipamento bem mantido, cada cobertura de folga realizada com responsabilidade — tudo isso compõe o mosaico de um setor que virou referência. <b style="color:#fff;">Somos um time. Evoluímos juntos.</b></p>
-            <div class="sign">— Supervisão de Bioquímica · DB Diagnósticos</div>
-          </div>
-          <div class="sec-h">
-            <span>Suas responsabilidades — claras, objetivas, suas.</span>
-            <div class="tabs" id="s9-tabs" style="margin-left:auto;"></div>
-          </div>
-          <div class="pgrid" id="s9-grid"></div>
-        </div>
-      </section>
-
-    </div><!-- /slides -->
-
-    <!-- shared footer -->
-    <footer class="deck-footer" id="footer">
-      <div class="ft-left">DB Diagnósticos · Bioquímica</div>
-      <div class="dots" id="dots"></div>
-      <div class="ft-right">Junho 2026</div>
+    <footer>
+      <span>© <span id="year"></span> <b>DB Diagnósticos</b> · Bioquímica</span>
+      <span>Atualizado continuamente</span>
     </footer>
-  </div><!-- /deck -->
-</div><!-- /stage -->
-
-<div class="hint-kbd">← →  navegar</div>
-<div class="controls">
-  <button class="nbtn" id="prev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>Anterior</button>
-  <div class="pg" id="pg">Slide 1 de 9</div>
-  <button class="nbtn" id="next">Próximo<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
-  <button class="nbtn pdf" id="pdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V3h12v6M6 18H4a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2M6 14h12v7H6z"/></svg>PDF</button>
-</div>
+  </div>
 
 <script>
-/* ============================ DATA ============================ */
-const ICON_CHECK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>';
-const ICON_ARROW='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h14M13 6l6 6-6 6"/></svg>';
-
-const GROUPS={
-  g1:{label:'RAU 51 + RAU 53',color:'#1D9E75',equip:'RAU 51 e RAU 53',acts:[
-    'Manutenção dos equipamentos RAU 51 e RAU 53.',
-    'Raqueamento do one way nos dois equipamentos.',
-    'Impressão de etiquetas após leitura do berço (impressão imediata após a finalização de leitura do berço e inserção das amostras novamente no equipamento IMEDIATO)']},
-  g2:{label:'RAU 52 + RAU 54',color:'#534AB7',equip:'RAU 52 e RAU 54',acts:[
-    'Manutenção dos equipamentos RAU 52 e RAU 54.',
-    'Raqueamento do one way apenas no RAU 52.',
-    'Impressão de etiquetas após leitura do berço apenas do RAU 52. (Continuar fluxo de impressão de etiquetas das amostras OneWay)']},
-  g3:{label:'RAU 55 + RAUT 5',color:'#D85A30',equip:'RAU 55 e RAUT 5',acts:[
-    'Manutenção dos equipamentos RAU 55 e RAUT 5.',
-    'Impressão de TODAS as etiquetas brancas do setor — responsabilidade exclusiva deste perfil.',
-    'Operação do equipamento RAUT 5.']},
-  g4:{label:'DXC + OPTILITE + Dimension',color:'#BA7517',equip:'DXC, OPTILITE e Dimension',acts:[
-    'Manutenção dos equipamentos DXC, OPTILITE e Dimension.',
-    'Tratativa de erros nos três equipamentos.']}
-};
-const TURNS={
-  A:{g1:'Kaandrea',g2:'Miguel',g3:'Isadora',g4:'Guilherme'},
-  B:{g1:'Auriane',g2:'Eduarda B',g3:'José',g4:'Eduarda C'},
-  C:{g1:'Thiago',g2:'Guilherme',g3:'Elaine',g4:'Suzany'}
-};
-// coverage rows: g = group of the person who is OFF
-const COVERAGE={
-  A:[
-    {folga:'Kaandrea',cobre:'Isadora',assume:'RAU 51 + 53 + todas as atividades',g:'g1'},
-    {folga:'Miguel',cobre:'Guilherme',assume:'RAU 52 + 54 + todas as atividades',g:'g2'},
-    {folga:'Isadora',cobre:'Guilherme',assume:'RAU 55 + RAUT 5 + etiquetas brancas',g:'g3'},
-    {folga:'Guilherme',cobre:'Isadora',assume:'DXC + OPTILITE + Dimension',g:'g4'}],
-  B:[
-    {folga:'Auriane',cobre:'Eduarda C',assume:'RAU 51 + 53 + todas as atividades',g:'g1'},
-    {folga:'Eduarda B',cobre:'José',assume:'RAU 52 + 54 + todas as atividades',g:'g2'},
-    {folga:'José',cobre:'Eduarda C',assume:'RAU 55 + RAUT 5 + etiquetas brancas',g:'g3'},
-    {folga:'Eduarda C',cobre:'José',assume:'DXC + OPTILITE + Dimension',g:'g4'}],
-  C:[
-    {folga:'Thiago',cobre:'Suzany',assume:'RAU 51 + 53 + todas as atividades',g:'g1'},
-    {folga:'Guilherme',cobre:'Elaine',assume:'RAU 52 + 54 + todas as atividades',g:'g2'},
-    {folga:'Elaine',cobre:'Suzany',assume:'RAU 55 + RAUT 5 + etiquetas brancas',g:'g3'},
-    {folga:'Suzany',cobre:'Elaine',assume:'DXC + OPTILITE + Dimension',g:'g4'}]
-};
-// Equipment layout (coords within 620x330 stage). box 150x56 → center +75,+28
-const EQUIP=[
-  {name:'RAU 51',sub:'one way',g:'g1',x:8,y:6,pri:true},
-  {name:'Computador',sub:'impressora de etiquetas',info:true,x:8,y:72},
-  {name:'RAU 53',sub:'one way',g:'g1',x:8,y:140,pri:true},
-  {name:'RAU 52',sub:'one way',g:'g2',x:8,y:272,pri:true},
-  {name:'RAUT 5',sub:'',g:'g3',x:235,y:6},
-  {name:'OPTILITE',sub:'',g:'g4',x:235,y:140},
-  {name:'RAU 55',sub:'',g:'g3',x:235,y:206},
-  {name:'RAU 54',sub:'one way',g:'g2',x:235,y:272,pri:true},
-  {name:'Dimension',sub:'',g:'g4',x:460,y:140},
-  {name:'DXC',sub:'',g:'g4',x:460,y:206}
-];
-const CENTROID={g1:{x:83,y:101},g2:{x:196,y:300},g3:{x:310,y:134},g4:{x:460,y:190}};
-
-/* ============================ STATE ============================ */
-let cur=0, mapTurn='A', s4Turn='A', s5Turn='A', s9Turn='A', covMode=false, selEquip=null;
-const slides=[...document.querySelectorAll('.slide')];
-const N=slides.length;
-
-/* ============================ RENDER: TABS ============================ */
-function tabHtml(active){return ['A','B','C'].map(t=>`<button class="tab ${t===active?'on':''}" data-t="${t}">Turno ${t}</button>`).join('');}
-
-/* ============================ SLIDE 3: MAP ============================ */
-function renderMap(){
-  const stage=document.getElementById('map-stage');
-  stage.querySelectorAll('.equip').forEach(e=>e.remove());
-  EQUIP.forEach(eq=>{
-    const el=document.createElement('div');
-    if(eq.info){
-      el.className='equip info';
-      el.style.left=eq.x+'px';el.style.top=eq.y+'px';
-      el.innerHTML=`<div class="en" style="font-size:14px;">${eq.name}</div><div class="eo">${eq.sub}</div>`;
-    }else{
-      const person=TURNS[mapTurn][eq.g];
-      el.className='equip'+(selEquip===eq.name?' sel':'');
-      el.style.left=eq.x+'px';el.style.top=eq.y+'px';
-      el.style.background=GROUPS[eq.g].color;
-      el.innerHTML=`<div class="en">${eq.name}</div><div class="eo">${person}</div>`+
-        (eq.pri?`<div class="pri-badge">⚠ Prioridade</div>`:'');
-      el.addEventListener('click',()=>{selEquip=eq.name;renderMap();renderPanel(eq);});
+  /* =========================================================
+     LISTA DE PROJETOS
+     Para adicionar um novo projeto, copie um bloco abaixo.
+     - status: "disponivel"  -> card clicável, abre o link
+     - status: "em_breve"    -> card desabilitado ("Em breve")
+     - href: caminho da pasta do projeto (ex.: "projetos/nome/")
+     - accent: cor do ícone (use var(--g1..g4) ou var(--teal))
+     ========================================================= */
+  const PROJETOS = [
+    {
+      titulo: "Novos Rumos, Mesma Equipe",
+      descricao: "Apresentação da reestruturação de fluxo de trabalho da equipe de bioquímica.",
+      tag: "Apresentação",
+      href: "projetos/reestruturacao-fluxo/",
+      status: "disponivel",
+      accent: "var(--teal)",
+      icon: "deck"
+    },
+    {
+      titulo: "Projeto Work Table",
+      descricao: "Proposta de reestruturação do fluxo operacional da Bioquímica — Work Table, distribuição de atividades e redução de falhas.",
+      tag: "Proposta",
+      href: "projetos/projeto-work-table/",
+      status: "disponivel",
+      accent: "var(--g1)",
+      icon: "doc"
+    },
+    {
+      titulo: "Work Table — Feedback e Novo Rodízio",
+      descricao: "Resultados do Projeto Work Table, feedback da equipe e o novo rodízio de atividades da Bioquímica.",
+      tag: "Apresentação",
+      href: "projetos/work-table-feedback/",
+      status: "disponivel",
+      accent: "var(--g4)",
+      icon: "deck"
     }
-    stage.appendChild(el);
-  });
-  // arrows
-  const svg=document.getElementById('arrows');
-  if(covMode){
-    let defs='<defs><marker id="ah" markerWidth="9" markerHeight="9" refX="6" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9z" fill="#35b6b4"/></marker></defs>';
-    let paths='';
-    COVERAGE[mapTurn].forEach((c,i)=>{
-      const from=CENTROID[c.g];
-      const toG=Object.keys(TURNS[mapTurn]).find(k=>TURNS[mapTurn][k]===c.cobre);
-      const to=CENTROID[toG]||from;
-      const mx=(from.x+to.x)/2, my=(from.y+to.y)/2-18;
-      paths+=`<path class="cov-line" marker-end="url(#ah)" d="M${from.x} ${from.y} Q ${mx} ${my} ${to.x} ${to.y}"/>`;
-      const lx=(from.x+to.x)/2, ly=(from.y+to.y)/2-22;
-      const lbl=`${c.folga} → ${c.cobre}`;
-      paths+=`<rect class="cov-label-bg" x="${lx-lbl.length*3.4}" y="${ly-11}" width="${lbl.length*6.8}" height="17" rx="4"/>`;
-      paths+=`<text class="cov-label" x="${lx}" y="${ly+1}" text-anchor="middle">${lbl}</text>`;
-    });
-    svg.innerHTML=defs+paths;
-  }else{svg.innerHTML='';}
-}
-function renderPanel(eq){
-  const p=document.getElementById('map-panel');
-  const g=GROUPS[eq.g], person=TURNS[mapTurn][eq.g];
-  let coverHtml='';
-  if(covMode){
-    const off=COVERAGE[mapTurn].find(c=>c.folga===person);
-    const cov=COVERAGE[mapTurn].filter(c=>c.cobre===person);
-    let bits=[];
-    if(off) bits.push(`Em folga, <b>${off.cobre}</b> assume seus equipamentos.`);
-    if(cov.length) bits.push(`${person} cobre: <b>${cov.map(c=>c.folga).join(', ')}</b>.`);
-    coverHtml=`<div class="mp-cover">🔁 ${bits.join('<br/>')}</div>`;
-  }
-  p.innerHTML=`
-    <div class="mp-eq">${eq.name}</div>
-    <div class="mp-resp"><span class="dotc" style="background:${g.color}"></span><span style="color:${g.color}">Responsável: ${person} · ${mapTurn}</span></div>
-    <ul class="mp-acts">${g.acts.map(a=>`<li>${ICON_CHECK}<span>${a}</span></li>`).join('')}</ul>
-    ${coverHtml}`;
-}
-function resetPanel(){
-  document.getElementById('map-panel').innerHTML='<p class="hint">Clique em um equipamento no mapa para ver o responsável e suas atividades neste turno.</p>';
-}
+  ];
 
-/* ============================ SLIDE 4: PERSON CARDS ============================ */
-function renderS4(){
-  const grid=document.getElementById('s4-grid');
-  grid.innerHTML=Object.keys(GROUPS).map(gk=>{
-    const g=GROUPS[gk], person=TURNS[s4Turn][gk];
-    return `<div class="pcard">
-      <div class="pc-top" style="background:${g.color}">
-        <div class="pc-name">${person}</div>
-        <div class="pc-eq">${g.label}</div>
-      </div>
-      <div class="pc-body"><ul>${g.acts.map(a=>`<li>${ICON_CHECK}<span>${a}</span></li>`).join('')}</ul></div>
-    </div>`;
-  }).join('');
-}
+  const ICONS = {
+    deck: '<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>',
+    lock: '<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>',
+    doc:  '<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg>',
+    chart:'<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>'
+  };
+  const ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
 
-/* ============================ SLIDE 5: COVERAGE TABLE ============================ */
-function renderS5(){
-  document.getElementById('s5-rows').innerHTML=COVERAGE[s5Turn].map(c=>`
-    <tr>
-      <td class="cell-folga">${c.folga}</td>
-      <td class="arrow-cell">${ICON_ARROW}</td>
-      <td class="cell-cobre">${c.cobre}</td>
-      <td class="cell-assume">${c.assume}</td>
-    </tr>`).join('');
-}
+  const grid = document.getElementById("grid");
+  grid.innerHTML = PROJETOS.map(p => {
+    const live = p.status === "disponivel";
+    const tagClass = live ? "disp" : "soon";
+    const el = live ? "a" : "div";
+    const attrs = live ? `href="${p.href}"` : 'aria-disabled="true"';
+    const icon = ICONS[p.icon] || ICONS.doc;
+    const cta = live
+      ? `<span class="go">Abrir projeto ${ARROW}</span>`
+      : `<span class="go muted">Em breve</span>`;
+    return `
+      <${el} class="card ${live ? "live" : "soon"}" ${attrs}>
+        <span class="chip" style="background:${p.accent}">${icon}</span>
+        <span class="tag ${tagClass}">${p.tag}</span>
+        <h3>${p.titulo}</h3>
+        <p>${p.descricao}</p>
+        ${cta}
+      </${el}>`;
+  }).join("");
 
-/* ============================ SLIDE 9: FULL CARDS ============================ */
-function renderS9(){
-  const grid=document.getElementById('s9-grid');
-  const t=s9Turn;
-  grid.innerHTML=Object.keys(GROUPS).map(gk=>{
-    const g=GROUPS[gk], person=TURNS[t][gk];
-    const covers=COVERAGE[t].filter(c=>c.cobre===person); // people this person covers
-    const off=COVERAGE[t].find(c=>c.folga===person);       // who covers this person
-    let coversHtml='';
-    if(covers.length){
-      coversHtml=covers.map(c=>{
-        const cg=GROUPS[c.g];
-        return `<div class="pc-sub">Em caso de folga de ${c.folga}, eu assumo</div>
-          <ul>${cg.acts.map(a=>`<li>${ICON_CHECK}<span>${a}</span></li>`).join('')}</ul>`;
-      }).join('');
-    }
-    const coveredBy=off?`<div class="cover-note">Em minha folga, <b>${off.cobre}</b> assume meus equipamentos.</div>`:'';
-    return `<div class="pcard">
-      <div class="pc-top" style="background:${g.color}">
-        <div class="pc-name">${person}</div>
-        <div class="pc-eq">${g.label}</div>
-      </div>
-      <div class="pc-body">
-        <div class="pc-sub">Minhas responsabilidades</div>
-        <ul>${g.acts.map(a=>`<li>${ICON_CHECK}<span>${a}</span></li>`).join('')}</ul>
-        ${coversHtml}
-        ${coveredBy}
-      </div>
-    </div>`;
-  }).join('');
-}
-
-/* ============================ TAB WIRING ============================ */
-function wireTabs(containerId,getCur,setFn){
-  const c=document.getElementById(containerId);
-  c.innerHTML=tabHtml(getCur());
-  c.addEventListener('click',e=>{
-    const b=e.target.closest('.tab'); if(!b) return;
-    setFn(b.dataset.t);
-    c.innerHTML=tabHtml(b.dataset.t);
-  });
-}
-// map tabs
-(function(){
-  const c=document.getElementById('map-tabs');
-  c.innerHTML=tabHtml(mapTurn);
-  c.addEventListener('click',e=>{
-    const b=e.target.closest('.tab'); if(!b) return;
-    mapTurn=b.dataset.t; c.innerHTML=tabHtml(mapTurn);
-    selEquip=null; resetPanel(); renderMap();
-  });
-})();
-document.getElementById('cov-toggle').addEventListener('click',function(){
-  covMode=!covMode; this.classList.toggle('on',covMode);
-  this.lastChild.textContent=covMode?' Ocultar coberturas':' Ver coberturas de folga';
-  renderMap();
-  if(selEquip){const eq=EQUIP.find(e=>e.name===selEquip);if(eq&&!eq.info)renderPanel(eq);}
-});
-wireTabs('s4-tabs',()=>s4Turn,t=>{s4Turn=t;renderS4();});
-wireTabs('s5-tabs',()=>s5Turn,t=>{s5Turn=t;renderS5();});
-wireTabs('s9-tabs',()=>s9Turn,t=>{s9Turn=t;renderS9();});
-
-/* ============================ NAV ============================ */
-const dotsWrap=document.getElementById('dots');
-dotsWrap.innerHTML=slides.map((_,i)=>`<div class="dot ${i===0?'on':''}" data-i="${i}"></div>`).join('');
-const dotEls=[...dotsWrap.children];
-function go(i){
-  i=Math.max(0,Math.min(N-1,i));
-  slides[cur].classList.remove('active');
-  dotEls[cur].classList.remove('on');
-  cur=i;
-  slides[cur].classList.add('active');
-  dotEls[cur].classList.add('on');
-  document.getElementById('pg').textContent=`Slide ${cur+1} de ${N}`;
-  document.getElementById('prev').disabled=cur===0;
-  document.getElementById('next').disabled=cur===N-1;
-  // footer tone on dark slides
-  document.getElementById('footer').classList.toggle('on-dark',slides[cur].classList.contains('dark'));
-}
-document.getElementById('prev').onclick=()=>go(cur-1);
-document.getElementById('next').onclick=()=>go(cur+1);
-document.getElementById('pdf').onclick=()=>window.print();
-dotEls.forEach(d=>d.onclick=()=>go(+d.dataset.i));
-window.addEventListener('keydown',e=>{
-  if(e.key==='ArrowRight'||e.key==='PageDown'){e.preventDefault();go(cur+1);}
-  else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();go(cur-1);}
-  else if(e.key==='Home'){go(0);} else if(e.key==='End'){go(N-1);}
-});
-/* touch swipe (mobile / tablet) */
-let tStartX=0,tStartY=0;
-const stageEl=document.querySelector('.stage');
-stageEl.addEventListener('touchstart',e=>{tStartX=e.changedTouches[0].clientX;tStartY=e.changedTouches[0].clientY;},{passive:true});
-stageEl.addEventListener('touchend',e=>{
-  const dx=e.changedTouches[0].clientX-tStartX, dy=e.changedTouches[0].clientY-tStartY;
-  if(Math.abs(dx)>50 && Math.abs(dx)>Math.abs(dy)*1.4){ dx<0?go(cur+1):go(cur-1); }
-},{passive:true});
-
-/* ============================ SCALING ============================ */
-function fit(){
-  const s=Math.min(window.innerWidth/1280, window.innerHeight/720);
-  document.getElementById('deck').style.transform=`scale(${s})`;
-}
-window.addEventListener('resize',fit);
-
-/* ============================ INIT ============================ */
-renderMap(); renderS4(); renderS5(); renderS9(); fit(); go(0);
+  const disp = PROJETOS.filter(p => p.status === "disponivel").length;
+  document.getElementById("count").textContent =
+    `${disp} disponíve${disp === 1 ? "l" : "is"} · ${PROJETOS.length} no total`;
+  document.getElementById("year").textContent = new Date().getFullYear();
 </script>
 </body>
 </html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&amp;family=Lora:ital,wght@0,400;0,500;0,600;1,400&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./tokens.css">
+<script src="./doc-page.js"></script>
+<style>
+doc-page:not(:defined){visibility:hidden}
+a{color:var(--accent-ink)} a:hover{color:var(--accent-tomato)}
+</style>
+</helmet>
+<doc-page size="a4" margin="0.75in" style="font-family:var(--font-body);color:var(--ink-800)">
+<div slot="footer" style="display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-500);border-top:1px dashed var(--paper-400);padding-top:6px">
+<span>DB Diagnósticos · Bioquímica Recife</span><span>Projeto Work Table</span>
+</div>
+
+<div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--ink-500);margin-bottom:10px">Bioquímica Recife · Jul–Out 2026&nbsp;<span style="letter-spacing: 2.2px;">· supervisora Mariana Nogueira</span></div>
+<h1 style="font-family:var(--font-display);font-weight:400;font-size:44px;line-height:1.05;letter-spacing:-0.02em;color:var(--ink-900);margin:0 0 14px">Projeto Work Table</h1>
+<p style="font-family:var(--font-body);font-style:italic;font-size:17px;line-height:1.6;color:var(--ink-700);margin:0 0 24px;max-width:60ch">Reestruturação do fluxo operacional do setor de Bioquímica — distribuição de atividades, organização das amostras, layout e redução do tempo de impressão de etiquetas.</p>
+
+<sc-if value="{{ showSummary }}" hint-placeholder-val="{{ true }}">
+<div style="break-inside:avoid;border-top:2px solid var(--ink-800);border-bottom:1px solid var(--paper-400);padding:16px 0 18px;margin-bottom:28px">
+<div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px">
+<div><div style="font-family:var(--font-display);font-size:30px;line-height:1;color:var(--accent-moss)">−41,4%</div><div style="font-size:12px;line-height:1.4;color:var(--ink-600);margin-top:6px">exames atrasados em julho vs. junho, com demanda 27,3% maior</div></div>
+<div><div style="font-family:var(--font-display);font-size:30px;line-height:1;color:var(--accent-moss)">−18,2%</div><div style="font-size:12px;line-height:1.4;color:var(--ink-600);margin-top:6px">TAT em julho vs. junho</div></div>
+<div><div style="font-family:var(--font-display);font-size:30px;line-height:1;color:var(--accent-moss)">5,81 h</div><div style="font-size:12px;line-height:1.4;color:var(--ink-600);margin-top:6px">TAT em outubro, melhor do período</div></div>
+<div><div style="font-family:var(--font-display);font-size:30px;line-height:1;color:var(--accent-moss)">0,13%</div><div style="font-size:12px;line-height:1.4;color:var(--ink-600);margin-top:6px">atrasos em outubro (1.949 exames), meta de 1,0%</div></div>
+</div>
+</div>
+</sc-if>
+
+<h2 style="font-family:var(--font-display);font-weight:400;font-size:24px;color:var(--ink-900);margin:0 0 10px">1. Objetivo geral</h2>
+<p style="font-size:15px;line-height:1.65;color:var(--ink-800);margin:0 0 12px">Promover a reestruturação do fluxo operacional do setor da Bioquímica UP Recife por meio da implantação de uma Work Table, com foco na padronização e distribuição das atividades, disponibilização de móveis e etiquetadoras otimizando assim o espaço físico, melhoria da organização dos processos e redução de falhas operacionais.</p>
+<p style="font-size:15px;line-height:1.65;color:var(--ink-800);margin:0 0 26px">A iniciativa busca proporcionar maior controle sobre as etapas do processo, melhorar o direcionamento das demandas e fortalecer o acompanhamento do desempenho individual e coletivo, contribuindo diretamente para a produtividade e a qualidade das entregas do setor.</p>
+
+<h2 style="font-family:var(--font-display);font-weight:400;font-size:24px;color:var(--ink-900);margin:0 0 10px">2. Objetivos específicos</h2>
+<ul style="font-size:15px;line-height:1.65;color:var(--ink-800);margin:0 0 26px;padding-left:20px;display:grid;gap:6px">
+<li><strong style="font-weight:600;color:var(--ink-900)">Distribuição de atividades:</strong> estabelecer uma divisão mais estruturada das responsabilidades entre os colaboradores, com maior clareza nas atribuições e melhor acompanhamento das entregas.</li>
+<li><strong style="font-weight:600;color:var(--ink-900)">Desenvolvimento individual:</strong> facilitar a identificação de oportunidades de melhoria, o acompanhamento de desempenho e o desenvolvimento técnico dos colaboradores.</li>
+<li><strong style="font-weight:600;color:var(--ink-900)">Organização operacional:</strong> estruturar o fluxo de entrada de amostras, rackeamento e reimpressão de etiquetas, garantindo maior fluidez nas atividades.</li>
+<li><strong style="font-weight:600;color:var(--ink-900)">Padronização dos processos:</strong> organizar inicialmente as demandas do fluxo Oneway e, posteriormente, ampliar a estruturação para as amostras exclusivas do setor.</li>
+<li><strong style="font-weight: 600; color: var(--ink-900);">Reestruturação do layout:</strong> otimizar a distribuição de racks com suporte de novos móveis de apoio, favorecendo a circulação, a organização e o aproveitamento do espaço físico.</li>
+</ul>
+
+<h2 style="font-family:var(--font-display);font-weight:400;font-size:24px;color:var(--ink-900);margin:0 0 12px">3. Melhorias implementadas</h2>
+<table style="width:100%;border-collapse:collapse;font-size:14px;line-height:1.5;color:var(--ink-800);margin:0 0 26px">
+<thead><tr>
+<th style="text-align:left;font-family:var(--font-mono);font-size:10px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-600);padding:0 12px 8px 0;border-bottom:1.5px solid var(--ink-800);width:32%">Frente de atuação</th>
+<th style="text-align:left;font-family:var(--font-mono);font-size:10px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-600);padding:0 0 8px;border-bottom:1.5px solid var(--ink-800)">Melhoria</th>
+</tr></thead>
+<tbody>
+<tr><td style="padding:9px 12px 9px 0;border-bottom:1px solid var(--paper-300);font-weight:600;color:var(--ink-900)">Gestão de pessoas</td><td style="padding:9px 0;border-bottom:1px solid var(--paper-300)">Distribuição estruturada das atividades e responsabilidades.</td></tr>
+<tr><td style="padding:9px 12px 9px 0;border-bottom:1px solid var(--paper-300);font-weight:600;color:var(--ink-900)">Organização</td><td style="padding:9px 0;border-bottom:1px solid var(--paper-300)">Centralização e melhor direcionamento das demandas operacionais.</td></tr>
+<tr><td style="padding:9px 12px 9px 0;border-bottom:1px solid var(--paper-300);font-weight:600;color:var(--ink-900)">Fluxo de amostras</td><td style="padding:9px 0;border-bottom:1px solid var(--paper-300)">Organização da entrada, rackeamento e reimpressão de etiquetas.</td></tr>
+<tr><td style="padding:9px 12px 9px 0;border-bottom:1px solid var(--paper-300);font-weight:600;color:var(--ink-900)">Layout</td><td style="padding:9px 0;border-bottom:1px solid var(--paper-300)">Redistribuição das racks, suporte no fluxo com novos móveis e otimização do espaço físico.</td></tr>
+<tr><td style="padding:9px 12px 9px 0;border-bottom:1px solid var(--paper-300);font-weight:600;color:var(--ink-900)">Padronização</td><td style="padding:9px 0;border-bottom:1px solid var(--paper-300)">Estruturação dos processos Oneway e das amostras exclusivas.</td></tr>
+<tr><td style="padding:9px 12px 9px 0;border-bottom:1px solid var(--paper-300);font-weight:600;color:var(--ink-900)">Qualidade</td><td style="padding:9px 0;border-bottom:1px solid var(--paper-300)">Redução do tempo de reimpressão de etiquetas no fluxo One Way.</td></tr>
+</tbody>
+</table>
+
+<h2 style="font-family:var(--font-display);font-weight:400;font-size:24px;color:var(--ink-900);margin:0 0 10px">4. Principal impacto esperado: redução no tempo de impressão de etiquetas</h2>
+<p style="font-size:15px;line-height:1.65;color:var(--ink-800);margin:0 0 12px">A redução&nbsp; no tempo de impressão de etiquetas é um dos principais ganhos esperados. Essa ocorrência é um importante ofensor operacional: atrasam o processamento das amostras, elevam o TAT e interrompem a continuidade do fluxo Oneway.</p>
+<div style="break-inside:avoid;background:var(--paper-100);border:1px solid var(--paper-300);border-radius:var(--radius-md);padding:16px 20px;margin:0 0 26px">
+<div style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-600);margin-bottom:8px">Com a reorganização da Work Table, pretende-se</div>
+<ul style="font-size:14.5px;line-height:1.6;color:var(--ink-800);margin:0;padding-left:20px;display:grid;gap:3px">
+<li>Disponibilizar número maior de etiquetadora zebra no setor, contribuindo para a impressão em tempo hábil.</li>
+<li>Diminuir retrabalhos e intervenções manuais no processo.</li>
+<li>Evitar interrupções e gargalos no fluxo Oneway.</li>
+<li>Reduzir o tempo de resolução de pendências operacionais.</li>
+<li>Contribuir para a redução dos atrasos e a melhoria do TAT do setor.</li>
+</ul>
+</div>
+
+<h2 style="font-family:var(--font-display);font-weight:400;font-size:24px;color:var(--ink-900);margin:0 0 12px">5. Benefícios esperados</h2>
+<dl style="margin:0 0 26px;font-size:14.5px;line-height:1.55;color:var(--ink-800)">
+<div style="break-inside:avoid;display:grid;grid-template-columns:32% minmax(0,1fr);gap:12px;padding:8px 0;border-bottom:1px solid var(--paper-300)"><dt style="font-weight:600;color:var(--ink-900)">Eficiência operacional</dt><dd style="margin:0">Melhor distribuição das demandas, menos retrabalho e maior fluidez nas atividades.</dd></div>
+<div style="break-inside:avoid;display:grid;grid-template-columns:32% minmax(0,1fr);gap:12px;padding:8px 0;border-bottom:1px solid var(--paper-300)"><dt style="font-weight:600;color:var(--ink-900)">Gestão de pessoas</dt><dd style="margin:0">Clareza das responsabilidades, acompanhamento individual e desenvolvimento da equipe.</dd></div>
+<div style="break-inside:avoid;display:grid;grid-template-columns:32% minmax(0,1fr);gap:12px;padding:8px 0;border-bottom:1px solid var(--paper-300)"><dt style="font-weight:600;color:var(--ink-900)">Qualidade dos processos</dt><dd style="margin:0">Menos falhas de identificação, amostras mais organizadas e etapas padronizadas.</dd></div>
+<div style="break-inside:avoid;display:grid;grid-template-columns:32% minmax(0,1fr);gap:12px;padding:8px 0;border-bottom:1px solid var(--paper-300)"><dt style="font-weight:600;color:var(--ink-900)">Fluxo operacional</dt><dd style="margin:0">Melhor integração com o Oneway, menos gargalos e tempo de processamento otimizado.</dd></div>
+<div style="break-inside:avoid;display:grid;grid-template-columns:32% minmax(0,1fr);gap:12px;padding:8px 0;border-bottom:1px solid var(--paper-300)"><dt style="font-weight:600;color:var(--ink-900)">Organização estrutural</dt><dd style="margin:0">Melhor aproveitamento do espaço físico e distribuição estratégica dos racks.</dd></div>
+</dl>
+
+<h2 style="break-before:page;font-family:var(--font-display);font-weight:400;font-size:24px;color:var(--ink-900);margin:0 0 10px">6. Análise dos indicadores</h2>
+<p style="font-size:15px;line-height:1.65;color:var(--ink-800);margin:0 0 20px">Período de janeiro a outubro de 2026. O projeto teve início em julho, mês de maior volume de exames liberados do ano.</p>
+
+<h3 style="font-family:var(--font-display);font-weight:400;font-size:19px;color:var(--ink-900);margin:0 0 8px">6.1 Exames atrasados e percentual de atrasos</h3>
+<p style="font-size:15px;line-height:1.65;color:var(--ink-800);margin:0 0 12px">Principal indicador de impacto do projeto, já que os erros de etiquetas geram retrabalho, interrupções e aumento do tempo de processamento. Entre janeiro e junho, o percentual de atrasos subiu de 0,21% para 1,82%, com o pior resultado em junho: 26.973 exames atrasados.</p>
+<sc-if value="{{ showCharts }}" hint-placeholder-val="{{ true }}">
+<figure style="break-inside:avoid;margin:0 0 14px">
+<svg viewBox="0 0 600 215" style="width:100%;height:auto;display:block;font-family:var(--font-mono)">
+<rect x="359" y="20" width="241" height="168" fill="var(--paper-200)" opacity="0.6"></rect>
+<text x="366" y="32" font-size="9" fill="var(--ink-600)" letter-spacing="1">PROJETO</text>
+<line x1="20" y1="105" x2="600" y2="105" stroke="var(--ink-500)" stroke-width="1" stroke-dasharray="3 4"></line>
+<text x="20" y="99" font-size="10" fill="var(--ink-600)">meta 1,0%</text>
+<line x1="20" y1="180" x2="600" y2="180" stroke="var(--paper-400)" stroke-width="1"></line>
+<polyline points="40,164.25 98,156 156,131.25 214,124.5 272,66.75 330,43.5 388,117 446,97.5 504,135 562,170.25" fill="none" stroke="var(--accent-tomato)" stroke-width="2.5" stroke-linejoin="round"></polyline>
+<g fill="var(--accent-tomato)"><circle cx="40" cy="164.25" r="3.5"></circle><circle cx="98" cy="156" r="3.5"></circle><circle cx="156" cy="131.25" r="3.5"></circle><circle cx="214" cy="124.5" r="3.5"></circle><circle cx="272" cy="66.75" r="3.5"></circle><circle cx="330" cy="43.5" r="3.5"></circle><circle cx="388" cy="117" r="3.5"></circle><circle cx="446" cy="97.5" r="3.5"></circle><circle cx="504" cy="135" r="3.5"></circle><circle cx="562" cy="170.25" r="3.5"></circle></g>
+<g font-size="10.5" fill="var(--ink-900)" text-anchor="middle"><text x="40" y="153">0,21%</text><text x="98" y="145">0,32%</text><text x="156" y="120">0,65%</text><text x="214" y="113">0,74%</text><text x="272" y="56">1,51%</text><text x="330" y="33">1,82%</text><text x="388" y="136">0,84%</text><text x="446" y="87">1,10%</text><text x="504" y="124">0,60%</text><text x="562" y="159">0,13%</text></g>
+<g font-size="10" fill="var(--ink-600)" text-anchor="middle"><text x="40" y="200">Jan</text><text x="98" y="200">Fev</text><text x="156" y="200">Mar</text><text x="214" y="200">Abr</text><text x="272" y="200">Mai</text><text x="330" y="200">Jun</text><text x="388" y="200">Jul</text><text x="446" y="200">Ago</text><text x="504" y="200">Set</text><text x="562" y="200">Out</text></g>
+</svg>
+<figcaption style="font-size:12px;font-style:italic;color:var(--ink-600);margin-top:6px">Figura 1 — Percentual de exames atrasados por mês, 2026. Área sombreada: período do projeto.</figcaption>
+</figure>
+</sc-if>
+<p style="font-size:15px;line-height:1.65;color:var(--ink-800);margin:0 0 12px">A partir de julho, o percentual caiu para 0,84% e os exames atrasados passaram de 26.973 para 15.816. Mesmo com demanda cerca de 27,3% maior que em junho, o setor reduziu em 41,4% o número absoluto de atrasos.</p>
+<ul style="font-size:15px;line-height:1.6;color:var(--ink-800);margin:0 0 12px;padding-left:20px;display:grid;gap:4px">
+<li><strong style="font-weight:600;color:var(--ink-900)">Agosto:</strong> 1,10% (19.898 exames). Oscilação, ainda abaixo do cenário de junho.</li>
+<li><strong style="font-weight:600;color:var(--ink-900)">Setembro:</strong> 0,60% (9.348 exames).</li>
+<li><strong style="font-weight:600;color:var(--ink-900)">Outubro:</strong> 0,13% (1.949 exames), melhor resultado do período e bem abaixo da meta de 1,0%.</li>
+</ul>
+<p style="font-size:15px;line-height:1.65;color:var(--ink-800);margin:0 0 26px">A evolução indica recuperação da capacidade operacional, com menos atrasos mesmo diante de volumes elevados. Organização do fluxo, distribuição de responsabilidades e melhoria na identificação das amostras são frentes diretamente ligadas aos objetivos do projeto.</p>
+
+<h3 style="font-family:var(--font-display);font-weight:400;font-size:19px;color:var(--ink-900);margin:0 0 8px">6.2 TAT (tempo de atendimento)</h3>
+<p style="font-size:15px;line-height:1.65;color:var(--ink-800);margin:0 0 12px">Junho foi o pior cenário, com TAT de 10,83 h. Julho teve redução expressiva, mesmo com o maior volume do período. Agosto mostrou que a manutenção dos resultados ainda exigia ajustes; setembro e outubro evoluíram de forma progressiva, com outubro atingindo o melhor resultado: 5,81 h.</p>
+<sc-if value="{{ showCharts }}" hint-placeholder-val="{{ true }}">
+<figure style="break-inside:avoid;margin:0 0 14px">
+<svg viewBox="0 0 600 215" style="width:100%;height:auto;display:block;font-family:var(--font-mono)">
+<rect x="359" y="20" width="241" height="168" fill="var(--paper-200)" opacity="0.6"></rect>
+<text x="366" y="32" font-size="9" fill="var(--ink-600)" letter-spacing="1">PROJETO</text>
+<line x1="20" y1="180" x2="600" y2="180" stroke="var(--paper-400)" stroke-width="1"></line>
+<polyline points="40,88.1 98,93 156,76 214,63 272,46.25 330,44.6 388,69.25 446,51.9 504,73.5 562,107.4" fill="none" stroke="var(--accent-ink)" stroke-width="2.5" stroke-linejoin="round"></polyline>
+<g fill="var(--accent-ink)"><circle cx="40" cy="88.1" r="3.5"></circle><circle cx="98" cy="93" r="3.5"></circle><circle cx="156" cy="76" r="3.5"></circle><circle cx="214" cy="63" r="3.5"></circle><circle cx="272" cy="46.25" r="3.5"></circle><circle cx="330" cy="44.6" r="3.5"></circle><circle cx="388" cy="69.25" r="3.5"></circle><circle cx="446" cy="51.9" r="3.5"></circle><circle cx="504" cy="73.5" r="3.5"></circle><circle cx="562" cy="107.4" r="3.5"></circle></g>
+<g font-size="10.5" fill="var(--ink-900)" text-anchor="middle"><text x="40" y="77">7,35</text><text x="98" y="110">6,96</text><text x="156" y="65">8,32</text><text x="214" y="52">9,36</text><text x="272" y="36">10,70</text><text x="330" y="34">10,83</text><text x="388" y="87">8,86</text><text x="446" y="41">10,25</text><text x="504" y="91">8,52</text><text x="562" y="125">5,81</text></g>
+<g font-size="10" fill="var(--ink-600)" text-anchor="middle"><text x="40" y="200">Jan</text><text x="98" y="200">Fev</text><text x="156" y="200">Mar</text><text x="214" y="200">Abr</text><text x="272" y="200">Mai</text><text x="330" y="200">Jun</text><text x="388" y="200">Jul</text><text x="446" y="200">Ago</text><text x="504" y="200">Set</text><text x="562" y="200">Out</text></g>
+</svg>
+<figcaption style="font-size:12px;font-style:italic;color:var(--ink-600);margin-top:6px">Figura 2 — TAT médio mensal em horas, 2026.</figcaption>
+</figure>
+</sc-if>
+<p style="font-size:15px;line-height:1.65;color:var(--ink-800);margin:0 0 26px">O comportamento do TAT sugere contribuição positiva da reorganização operacional, especialmente pela melhor distribuição das atividades, organização das amostras e redução de gargalos.</p>
+
+<h3 style="font-family:var(--font-display);font-weight:400;font-size:19px;color:var(--ink-900);margin:0 0 8px">6.3 Volume de exames liberados</h3>
+<p style="font-size:15px;line-height:1.65;color:var(--ink-800);margin:0 0 12px">Julho concentrou o maior volume do ano, com 1,88 milhão de exames liberados (+16,4% sobre o mesmo mês do ano anterior). Os ganhos de TAT e de atrasos ocorreram, portanto, sob demanda elevada.</p>
+<sc-if value="{{ showCharts }}" hint-placeholder-val="{{ true }}">
+<figure style="break-inside:avoid;margin:0 0 26px">
+<svg viewBox="0 0 600 215" style="width:100%;height:auto;display:block;font-family:var(--font-mono)">
+<line x1="20" y1="180" x2="600" y2="180" stroke="var(--paper-400)" stroke-width="1"></line>
+<g fill="var(--paper-400)"><rect x="23" y="76.8" width="34" height="103.2"></rect><rect x="81" y="84.1" width="34" height="95.9"></rect><rect x="139" y="54.3" width="34" height="125.7"></rect><rect x="197" y="69" width="34" height="111"></rect><rect x="255" y="48.6" width="34" height="131.4"></rect><rect x="313" y="69.1" width="34" height="110.9"></rect></g>
+<g fill="var(--accent-ink)"><rect x="371" y="38.8" width="34" height="141.2"></rect><rect x="429" y="44.3" width="34" height="135.7"></rect><rect x="487" y="62.6" width="34" height="117.4"></rect><rect x="545" y="68.1" width="34" height="111.9"></rect></g>
+<g font-size="10.5" fill="var(--ink-900)" text-anchor="middle"><text x="40" y="70">1,38</text><text x="98" y="77">1,28</text><text x="156" y="47">1,68</text><text x="214" y="62">1,48</text><text x="272" y="42">1,75</text><text x="330" y="62">1,48</text><text x="388" y="32">1,88</text><text x="446" y="37">1,81</text><text x="504" y="56">1,56</text><text x="562" y="61">1,49</text></g>
+<g font-size="10" fill="var(--ink-600)" text-anchor="middle"><text x="40" y="200">Jan</text><text x="98" y="200">Fev</text><text x="156" y="200">Mar</text><text x="214" y="200">Abr</text><text x="272" y="200">Mai</text><text x="330" y="200">Jun</text><text x="388" y="200">Jul</text><text x="446" y="200">Ago</text><text x="504" y="200">Set</text><text x="562" y="200">Out</text></g>
+</svg>
+<figcaption style="font-size:12px;font-style:italic;color:var(--ink-600);margin-top:6px">Figura 3 — Exames liberados por mês, em milhões, 2026. Em azul: meses do projeto.</figcaption>
+</figure>
+</sc-if>
+
+<h2 style="font-family:var(--font-display);font-weight:400;font-size:24px;color:var(--ink-900);margin:0 0 10px">7. Conclusão</h2>
+<p style="font-size:15px;line-height:1.65;color:var(--ink-800);margin:0 0 12px">A implantação do Projeto Work Table foi uma iniciativa importante de reestruturação operacional da Bioquímica, diante do crescimento da demanda e da necessidade de maior controle sobre os processos.</p>
+<p style="font-size:15px;line-height:1.65;color:var(--ink-800);margin:0 0 12px">O principal destaque é a resposta em julho: com o maior volume de exames do período, o setor reduziu expressivamente o percentual de atrasos e melhorou o TAT em relação ao mês anterior. Apesar da oscilação de agosto, setembro e outubro mostraram evolução consistente, culminando no melhor TAT e no menor percentual de atrasos do período.</p>
+<p style="font-size:15px;line-height:1.65;color:var(--ink-800);margin:0">O resultado reforça a importância da reorganização dos fluxos, da distribuição estruturada das atividades e da redução de gargalos — em especial os ligados ao tempo de impressão de etiquetas. O projeto não se limita ao layout físico: estabelece uma nova organização de trabalho, com mais direcionamento, acompanhamento e eficiência operacional.</p>
+</doc-page>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showSummary&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Conteúdo&quot;},&quot;showCharts&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Conteúdo&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    return { showSummary: this.props.showSummary ?? true, showCharts: this.props.showCharts ?? true };
+  }
+}
+</script>
+</body>
+</html>
